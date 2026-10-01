@@ -93,7 +93,7 @@ header{flex-wrap:wrap}.hd{order:3;width:100%;margin:0;justify-content:flex-start
 .mg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.mg button{border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:18px;padding:14px 4px;cursor:pointer;font:600 12px system-ui;display:flex;flex-direction:column;align-items:center;gap:4px}.mg button span{font-size:26px;position:relative}
 .mg em{position:absolute;top:-4px;right:-12px;min-width:18px;padding:0 5px;border-radius:99px;background:var(--bad);color:#fff;font:700 11px/18px system-ui;font-style:normal}
 .cc{display:flex;gap:12px;align-items:center;cursor:pointer}.cc:hover{border-color:var(--ac2)}.av.lg{width:54px;height:54px;font-size:28px}.cci{min-width:0}.tag.bad{background:var(--bad);color:#fff}
-.dx{display:none}.blks{display:flex;flex-direction:column}.blk:empty{display:none}
+#nav .dx{display:none}.blks{display:flex;flex-direction:column}.blk:empty{display:none}
 .banpl{margin:0 16px 12px;padding:11px 16px;border-radius:14px;background:var(--bad);color:#fff;font-weight:700;display:flex;gap:8px;align-items:center}
 .ly{padding:6px 0}.ly button[disabled]{opacity:.35;cursor:default}
 @media(min-width:1024px){
@@ -115,6 +115,10 @@ header,#m{max-width:1100px;margin-left:auto;margin-right:auto}header{justify-con
 #m.t10 #cl{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}#m.t10 #cl .card{margin:0}
 #ad{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;align-items:start}#ad>.chips,#ad>.card:only-child{grid-column:1/-1}
 }
+.un{display:inline-flex;align-items:center;gap:4px;flex-wrap:wrap;min-width:0}.tl{padding:0}
+.blk .g{grid-template-columns:repeat(2,minmax(0,1fr))}.blk .big{font-size:22px}
+.chips{padding-top:6px}.chip.a{box-shadow:none}button.att{border:0;background:none;cursor:pointer}
+@media(min-width:1024px){.card.pf{padding:0}.pfh{align-items:flex-start}.pfi{padding-top:72px}}
 </style></head><body><div class="w"><header><h1>BaoMudao.ru</h1><div id="hd" class="hd"></div><button id="th" title="Тема">🌓</button></header><main id="m"><noscript><p>Для работы нужен JavaScript. Откройте страницу в обычном браузере (Safari, Chrome).</p></noscript></main></div><nav id="nav"></nav><div id="md" hidden><div class="mc"><h3>📤 Отчёт</h3><textarea id="ta" readonly></textarea><div class="acts"><button class="b p" onclick="cp()">📋 Копировать</button><button class="b" onclick="sh()">Поделиться</button><button class="b" onclick="$('#md').hidden=true">Закрыть</button></div></div></div><div id="am" hidden></div><div id="mo" hidden onclick="this.hidden=true"></div><div id="lx" hidden onclick="this.hidden=true"></div><div id="ts"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js"></script><script>
 const $=s=>document.querySelector(s),N=(n,d=1)=>(+n).toLocaleString('ru-RU',{maximumFractionDigits:d});
 const dur=m=>{m=Math.ceil(m);return `${Math.floor(m/1440)}д ${Math.floor(m%1440/60)}ч ${m%60}м`};
@@ -217,7 +221,7 @@ let U=null,P=null,PV=null,FAV=[],LM='t',rch=null,AR=!ON,UN=0,EDIT=0,PI=null,TL=1
 const AV=['🦊','🐺','🦁','🐯','🐼','🐲','🦅','🦉','🐙','🦄','🤖','👑'],ZERO='00000000-0000-0000-0000-000000000000';
 const setup=()=>'<div class="card"><h3>⚙️ Нужна настройка Supabase</h3><p>Впишите SUPABASE_URL и SUPABASE_ANON_KEY в config.js и выполните schema.sql (см. README).</p></div>';
 const ago=t=>{const m=(Date.now()-new Date(t))/6e4;return m<1?'сейчас':m<60?Math.floor(m)+' мин':m<1440?Math.floor(m/60)+' ч':new Date(t).toLocaleDateString('ru-RU')};
-const av=(p,c='')=>`<span class="av ${c}">${p&&p.avatar_url?`<img src="${H(p.avatar_url)}" alt="">`:H(p&&p.avatar||'👤')}</span>`,ulink=id=>`<a href="#" class="ul" onclick="showU('${id}');return false">${av(PC[id])} <b>${H(PC[id]&&PC[id].username||'?')}</b></a>${nb(PC[id])}`;
+const av=(p,c='')=>`<span class="av ${c}">${p&&p.avatar_url?`<img src="${H(p.avatar_url)}" alt="">`:H(p&&p.avatar||'👤')}</span>`,ulink=id=>`<span class="un"><a href="#" class="ul" onclick="showU('${id}');return false">${av(PC[id])} <b>${H(PC[id]&&PC[id].username||'?')}</b></a>${nb(PC[id])}</span>`;
 const showU=id=>{PV=id;EDIT=0;go(8)},yt=u=>{const m=String(u||'').match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:null},rf=()=>{if(T==8||(T==10&&CV))R();else if(T==9)loadF(true)},chk=e=>{if(e){toast(em(e));return 1}};
 function navR(){const od=[2,3,4,7,10],ex=[['🏠','Главная',0,1,[0]],['🏆','Рейтинг',6,5,[6]],['📚','Гайд',TL,6,[1,2,3,4,5]],['🆘','Поддержка',12,8,[12]],...(ADM?[['🛡','Админ',11,9,[11]]]:[])];
 $('#nav').innerHTML=NAV.map((g,k)=>`<button class="${g[2].includes(T)?'a':''} ${k==4?'mm':''}" style="order:${od[k]}" onclick="nv(${k})"><span>${g[0]}${g[2][0]==7&&UN?`<em>${UN}</em>`:g[2][0]==0&&ADMN?`<em>${ADMN}</em>`:''}</span>${g[1]}</button>`).join('')+ex.map(x=>`<button class="dx ${x[4].includes(T)?'a':''}" style="order:${x[3]}" onclick="go(${x[2]})"><span>${x[0]}${x[0]=='🛡'&&ADMN?`<em>${ADMN}</em>`:''}</span>${x[1]}</button>`).join('')}
@@ -292,7 +296,7 @@ function attach(i){const f=i.files[0];i.value='';if(!f)return;if(f.size>10485760
 const capR=()=>{const e=$('#cap');if(e)e.innerHTML=CA?`<div class="capi">📎 ${H(CA.name)} <a href="#" onclick="CA=null;capR();return false">✖</a></div>`:''};
 async function pinM(id,v){if(chk((await sb.from('messages').update({pinned:!!v}).eq('id',id)).error))return;rCV()}
 let FOL=[],FLK=null,FLid=null,FM='all',FIDS=null,FQ='',RE=null,ED=null,MQ='',CL=[],SQ=false;
-const unm=id=>`<a href="#" class="ul" onclick="showU('${id}');return false"><b>${H(PC[id]&&PC[id].username||'?')}</b></a>${nb(PC[id])}`;
+const unm=id=>`<span class="un"><a href="#" class="ul" onclick="showU('${id}');return false"><b>${H(PC[id]&&PC[id].username||'?')}</b></a>${nb(PC[id])}</span>`;
 const fnd=()=>{FQ=$('#fq').value.trim();doFind()};
 async function doFind(){const e=$('#lb'),q=FQ.replace(/[^\wА-Яа-яЁё]/g,'');if(q.length<2){e.textContent='Введите минимум 2 символа: ник или @юзернейм';return}const{data,error}=await sb.from('profiles').select('id,username,avatar,avatar_url,tag,handle,verified').or(`username.ilike.%${q}%,handle.ilike.%${q.toLowerCase()}%`).limit(30);if(!$('#lb'))return;if(error)return e.textContent=error.message;(data||[]).forEach(p=>PC[p.id]=p);e.innerHTML=(data||[]).map(p=>`<div class="row" style="grid-template-columns:1fr auto">${ulink(p.id)}<span class="mu">${U&&p.handle?'@'+H(p.handle):''}</span></div>`).join('')||'Никого не нашлось'}
 async function saveSet(){const t=$('#ptag').value.trim().toUpperCase(),n=$('#pnm').value.trim(),h=$('#phd').value.trim().replace(/^@/,'').toLowerCase();if(!/^[\wА-Яа-яЁё]{3,20}$/.test(n))return toast('Имя: 3–20 букв, цифр или _');if(t&&!/^[A-Z0-9]{4}$/.test(t))return toast('Тег: ровно 4 символа A–Z и 0–9');if(h&&!/^[a-z0-9_]{4,20}$/.test(h))return toast('Юзернейм: 4–20 символов a–z, 0–9, _');const u={username:n,handle:h||null,bio:$('#pbio').value.slice(0,200),tag:t||null,priv_dm:$('#s_dm').value,priv_post:$('#s_post').value,priv_comment:$('#s_cm').value,priv_view:$('#s_view').value},{error}=await sb.from('profiles').update(u).eq('id',U.id);if(error)return toast(error.code=='23505'?'Имя или юзернейм уже заняты':em(error));Object.assign(P,u);PC[U.id]=P;toast('Сохранено ✔');R()}
